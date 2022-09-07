@@ -2,7 +2,8 @@ package com.revature.P1.daos;
 
 import com.revature.P1.models.User;
 import com.revature.P1.utils.database.ConnectionFactory;
-import com.revature.P1.utils.database.custom_exceptions.InvalidSQLException;
+import com.revature.P1.utils.custom_exceptions.InvalidSQLException;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,8 +14,23 @@ import java.util.List;
 
 public class UserDAO implements CrudDAO<User> {
     @Override
-    public void save(User obj) throws IOException {
+    public void save(User obj) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO ERS_USERS (USER_ID, USERNAME, EMAIL, PASSWORD, GIVEN_NAME, SURNAME, IS_ACTIVE, ROLE_ID)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setString(1, obj.getUser_id());
+            ps.setString(2, obj.getUsername());
+            ps.setString(3, obj.getEmail());
+            ps.setString(4, obj.getPassword());
+            ps.setString(5, obj.getGivenName());
+            ps.setString(6, obj.getSurename());
+            ps.setBoolean(7, obj.getIs_active());
+            ps.setString(8, obj.getRole_id());
 
+        }catch(SQLException e) {
+            e.printStackTrace();
+            throw new InvalidSQLException(("An error occurred while trying to save to the database"));
+        }
     }
 
     @Override

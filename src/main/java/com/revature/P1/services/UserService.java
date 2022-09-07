@@ -1,7 +1,11 @@
 package com.revature.P1.services;
 
 import com.revature.P1.daos.UserDAO;
-import com.revature.P1.utils.database.custom_exceptions.InvalidRequestException;
+import com.revature.P1.dtos.request.NewUserRequest;
+import com.revature.P1.models.User;
+import com.revature.P1.utils.custom_exceptions.InvalidRequestException;
+
+import java.util.UUID;
 
 public class UserService {
 
@@ -40,6 +44,22 @@ public class UserService {
     public boolean isSamePassword(String password, String password1){
         if(!password.equals(password1)) throw new InvalidRequestException("\nPasswords do not match");
             return true;
+    }
+
+    public User register(NewUserRequest request){
+        User user = null;
+
+        if(isUsernameValid(request.getUsername())){
+            if (!isDuplicateUsername(request.getUsername())){
+                if (isValidPassword(request.getPassword())){
+                    if(isSamePassword(request.getPassword(), request.getPassword2())){
+                       user = new User(UUID.randomUUID().toString(), request.getUsername(), request.getEmail(), request.getPassword(), request.getFirstName(), request.getLastName(), true, request.getRoleid());
+                       userDAO.save(user);
+                    }
+                }
+            }
+        }
+        return user;
     }
 
 
