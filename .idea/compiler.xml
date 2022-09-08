@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="P1" />
         <module name="P1-ReimbursementSystem" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="P1" target="1.8" />
       <module name="P1-ReimbursementSystem" target="1.8" />
     </bytecodeTargetLevel>
   </component>

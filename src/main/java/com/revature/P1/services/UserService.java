@@ -5,6 +5,7 @@ import com.revature.P1.dtos.request.NewUserRequest;
 import com.revature.P1.models.User;
 import com.revature.P1.utils.custom_exceptions.InvalidRequestException;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserService {
@@ -60,6 +61,14 @@ public class UserService {
             }
         }
         return user;
+    }
+
+    public List<User> getAllUsers(){
+        return userDAO.getAll();
+    }
+
+    public String getUserByUsername(String username){
+        return userDAO.getByUsername(username);
     }
 
 

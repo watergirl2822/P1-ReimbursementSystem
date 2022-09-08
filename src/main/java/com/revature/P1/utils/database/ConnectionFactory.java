@@ -12,9 +12,10 @@ public class ConnectionFactory {
 
     static{  //static block - this is loaded only once: the first time the class is loaded into memory
         try{
-            Class.forName("org.postgreslq.Driver");
+            Class.forName("org.postgresql.Driver");
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
+            System.err.println("where is your postgres JDBC Driver?");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.revature.P1.dtos.response;
 
 public class Principal {
+    //is the currently logged in user!!
     private String user_id;
     private String username;
     private String firstName;
@@ -14,6 +15,12 @@ public class Principal {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isActive = isActive;
+        this.role_id = role_id;
+    }
+
+    public Principal(String user_id, String username, String role_id) {
+        this.user_id = user_id;
+        this.username = username;
         this.role_id = role_id;
     }
 
